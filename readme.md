@@ -3,15 +3,17 @@
 Uma API para registro de receitas e gastos.
 
 ##  Tecnologias utilizadas
-Para esse projeto foi utilizado o Python, Django, Django REST Framework, DRF-Spectacular e SQLite.
+Para esse projeto foi utilizado: Python, Django, Django REST Framework, DRF-Spectacular e SQLite.
 
-Django: É um framework baseado em Python, ele facilita o desenvolvimento e disponibiliza diversas soluções de modo integrado, dentre elas o ORM que é utilizado nessa aplicação.
+Python: É uma liguagem de programação orientada a objetos, possui uma grande gama de libs, sendo bastante popular na comunidade de desenvolvimento.
 
-Django REST Framework: É um framework para Django, por meio dele é possível acelerar o desenvolvimento, pois, ele abstrai diversas regras como, por exemplo, a definição de regras para a entrada de campos.
+Django: É um framework de Python que facilita o desenvolvimento e disponibiliza diversas soluções integradas, dentre elas o ORM que é utilizado na aplicação.
 
-DRF-Spectacular: Ferramenta que auxilia a geração de esquemas para a documentação da API.
+Django REST Framework: É um framework para Django que acelera o desenvolvimento, pois abstrai diversas regras, como a definição de regras para a entrada de campos.
 
-SQLite: Um dos banco de dados relacionais mais utilizados no mercado. 
+DRF-Spectacular: Ferramenta que auxilia na geração de esquemas para a documentação da API.
+
+SQLite: Um dos bancos de dados relacionais mais utilizados no mercado.
 
 ## Instalação
 Para executar esse projeto, é necessário que você tenha o Python instalado em sua máquina. Se não tiver, proceda com a instalação antes de executar os passos abaixo.
