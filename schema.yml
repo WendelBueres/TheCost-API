@@ -1,0 +1,486 @@
+openapi: 3.0.3
+info:
+  title: The Cost - API
+  version: 1.0.0
+  description: Uma API para o projeto The Cost
+paths:
+  /register/:
+    get:
+      operationId: register_list
+      tags:
+      - register
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Register'
+          description: ''
+    post:
+      operationId: register_create
+      tags:
+      - register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Register'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Register'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Register'
+          description: ''
+  /register/{id}/:
+    get:
+      operationId: register_retrieve
+      parameters:
+      - in: query
+        name: day
+        schema:
+          type: integer
+        description: Day of the register
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      - in: query
+        name: month
+        schema:
+          type: integer
+        description: Month of the register
+      - in: query
+        name: year
+        schema:
+          type: integer
+        description: Year of the register
+      tags:
+      - register
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterSerializerDetails'
+          description: ''
+    put:
+      operationId: register_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterSerializerDetails'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RegisterSerializerDetails'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RegisterSerializerDetails'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterSerializerDetails'
+          description: ''
+    patch:
+      operationId: register_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedRegisterSerializerDetails'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedRegisterSerializerDetails'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedRegisterSerializerDetails'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterSerializerDetails'
+          description: ''
+    delete:
+      operationId: register_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - register
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /register/resume/:
+    get:
+      operationId: register_resume_list
+      parameters:
+      - in: query
+        name: day
+        schema:
+          type: integer
+        description: Day of the register
+      - in: query
+        name: month
+        schema:
+          type: integer
+        description: Month of the register
+      - in: query
+        name: year
+        schema:
+          type: integer
+        description: Year of the register
+      tags:
+      - register
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RegisterResume'
+              examples:
+                Example:
+                  value:
+                  - rewards: 26600.0
+                    debits: 4610.0
+                    balance: 21990.0
+                    '2021':
+                      months:
+                        '8':
+                          reward: 200.0
+                          debit: 50.0
+                        '9':
+                          reward: 200.0
+                          debit: 100.0
+                        '10':
+                          reward: 2000.0
+                          debit: 1000.0
+                        '11':
+                          reward: 50.0
+                          debit: 0.0
+                        '12':
+                          reward: 100.0
+                          debit: 0.0
+                      reward_year: 2550.0
+                      debit_year: 1150.0
+                      balance_year: 1400.0
+                    '2022':
+                      months:
+                        '1':
+                          reward: 100.0
+                          debit: 10.0
+                        '2':
+                          reward: 9000.0
+                          debit: 10000.0
+                        '3':
+                          reward: 6000.0
+                          debit: 5000.0
+                        '4':
+                          reward: 350.0
+                          debit: 700.0
+                        '5':
+                          reward: 8000.0
+                          debit: 5000.0
+                        '6':
+                          reward: 100.0
+                          debit: 40.0
+                        '7':
+                          reward: 700.0
+                          debit: 90.0
+                        reward_year: 24250.0
+                        debit_year: 20840.0
+                        balance_year: 3410.0
+                  summary: example
+          description: ''
+  /users/:
+    post:
+      operationId: users_create
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /users/login/:
+    post:
+      operationId: users_login_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+components:
+  schemas:
+    CategoryEnum:
+      enum:
+      - salary
+      - bill
+      - leisure
+      - shopping
+      - vehicle
+      type: string
+      description: |-
+        * `salary` - Salary
+        * `bill` - Bill
+        * `leisure` - Leisure
+        * `shopping` - Shopping
+        * `vehicle` - Vehicle
+    PatchedRegisterSerializerDetails:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        description:
+          type: string
+          maxLength: 128
+        value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        date:
+          type: string
+          format: date
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        user_id:
+          type: integer
+          readOnly: true
+    Register:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        description:
+          type: string
+          maxLength: 128
+        value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        date:
+          type: string
+          format: date
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+      required:
+      - category
+      - date
+      - description
+      - id
+      - type
+      - value
+    RegisterResume:
+      type: object
+      properties:
+        years:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        rewards:
+          type: number
+          format: double
+          readOnly: true
+        debits:
+          type: number
+          format: double
+          readOnly: true
+        balance:
+          type: number
+          format: double
+          readOnly: true
+      required:
+      - balance
+      - debits
+      - rewards
+      - years
+    RegisterSerializerDetails:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        description:
+          type: string
+          maxLength: 128
+        value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        date:
+          type: string
+          format: date
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        user_id:
+          type: integer
+          readOnly: true
+      required:
+      - category
+      - date
+      - description
+      - id
+      - type
+      - user_id
+      - value
+    TokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - email
+      - password
+      - refresh
+    TypeEnum:
+      enum:
+      - reward
+      - debit
+      type: string
+      description: |-
+        * `reward` - Reward
+        * `debit` - Debit
+    User:
+      type: object
+      properties:
+        first_name:
+          type: string
+          maxLength: 60
+        last_name:
+          type: string
+          maxLength: 60
+        email:
+          type: string
+          format: email
+          maxLength: 50
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+      required:
+      - email
+      - first_name
+      - last_name
+      - password
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+tags:
+- name: users
+  description: endpoint para registro e login de usuários
+- name: register
+  description: endpoints para registro de gastos

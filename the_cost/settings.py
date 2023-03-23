@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'register',
     'user',
     'rest_framework',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,17 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.User'
+
+# DRF_SPECTACULAR SETTINGS
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'The Cost - API',
+    'DESCRIPTION': 'Uma API para o projeto The Cost',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'TAGS': [{"name": "users", "description": "endpoint para registro e login de usuários"}, {"name": "register", "description": "endpoints para registro de gastos"}],
+}
