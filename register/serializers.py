@@ -83,10 +83,7 @@ class RegisterResumeSerializer(serializers.Serializer):
             number.year = number.date.year
             number.month = number.date.month
             if (not number.year in years.keys()):
-                years[number.year] = {'months': {}}
-                years[number.year]["reward_year"] = 0
-                years[number.year]["debit_year"] = 0
-                years[number.year]["balance_year"] = 0
+                years[number.year] = {'months': {}, "reward_year": 0, "debit_year": 0, "balance_year": 0}
             if (not number.month in years[number.year]['months']):
                 years[number.year]['months'][number.month] = {"reward": 0, "debit": 0}
             if (number.type == "debit"):
@@ -97,7 +94,6 @@ class RegisterResumeSerializer(serializers.Serializer):
                 years[number.year]['reward_year'] += number.value
                 years[number.year]['balance_year'] += number.value
                 years[number.year]['months'][number.month]['reward'] += number.value
-
         years = dict(sorted(zip(years.keys(), years.values()))) 
 
         for year in years:
