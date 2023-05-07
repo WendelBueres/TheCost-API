@@ -126,3 +126,5 @@ dist/
 *.egg-info/zip-safe
 *.egg-info/installed-files.txt
 *.egg-info/
+node_modules
+.vercel
