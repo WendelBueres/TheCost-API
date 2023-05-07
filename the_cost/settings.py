@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework_simplejwt.token_blacklist',
     'register',
     'user',
     'rest_framework',
@@ -60,7 +61,8 @@ MIDDLEWARE = [
 ]
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=6),
+    "REFRESH_TOKEN_LIFETIME": timedelta(weeks=100),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=3),
 }
 
 
@@ -90,8 +92,12 @@ WSGI_APPLICATION = 'the_cost.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+      "ENGINE": "django.db.backends.postgresql",
+      "NAME": os.getenv("POSTGRES_DB"),
+      "USER": os.getenv("POSTGRES_USER"),
+      "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+      "HOST": "127.0.0.1",
+      "PORT": 5432,
     }
 }
 
