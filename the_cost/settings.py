@@ -12,11 +12,19 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from datetime import timedelta
 from pathlib import Path
-import dotenv
+import dj_database_url
 import os
 from django.core.management.utils import get_random_secret_key
+from dotenv import load_dotenv
 
-dotenv.load_dotenv()
+#imports necessários para aws
+import pysqlite3
+import sys
+# adicionando binario do sqlite3 ao sys
+sys.modules['sqlite3'] = pysqlite3
+
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -93,11 +101,18 @@ WSGI_APPLICATION = 'the_cost.wsgi.application'
 
 DATABASES = {
     'default': {
-      "ENGINE": "django.db.backends.postgresql",
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+DATABASES = {
+    'default': {
+      "ENGINE": "django.db.backends.postgresql_psycopg2",
       "NAME": os.getenv("POSTGRES_DB"),
       "USER": os.getenv("POSTGRES_USER"),
       "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-      "HOST": "127.0.0.1",
+      "HOST": os.getenv("POSTGRES_HOST"),
       "PORT": 5432,
     }
 }
@@ -109,12 +124,15 @@ DATABASE_URL = os.getenv('POSTGRES_URL')
 if DATABASE_URL:
     db_from_env = dj_database_url.config(
         default=DATABASE_URL, conn_max_age=500, ssl_require=True)
+    print(db_from_env)
     DATABASES['default'].update(db_from_env)
     DEBUG = False
 
 if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+    MEDIA_URLS = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Password validation

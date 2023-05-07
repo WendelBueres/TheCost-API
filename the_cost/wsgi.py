@@ -14,3 +14,6 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'the_cost.settings')
 
 application = get_wsgi_application()
+
+# config deploy to vercel
+app = application
